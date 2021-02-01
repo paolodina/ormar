@@ -22,11 +22,11 @@ Following methods allow you to load data from the database.
 
 `get(**kwargs) -> Model`
 
-Get's the first row from the db meeting the criteria set by kwargs.
+Gets the first row from the db meeting the criteria set by kwargs.
 
 If no criteria set it will return the last row in db sorted by pk column.
 
-Passing a criteria is actually calling filter(**kwargs) method described below.
+Passing a criteria is actually calling `filter(**kwargs)` method described below.
 
 ```python
 class Track(ormar.Model):
@@ -45,6 +45,7 @@ class Track(ormar.Model):
 track = await Track.objects.get(name='The Bird')
 # note that above is equivalent to await Track.objects.filter(name='The Bird').get()
 track2 = track = await Track.objects.get()
+#^^^ shouldn't it be: track2 = await Track.objects.get()
 track == track2
 # True since it's the only row in db in our example
 # and get without arguments return first row by pk column desc 

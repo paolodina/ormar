@@ -30,18 +30,18 @@ Contains the actual `ormar.Model` class, which is based on:
     *  inherits from `pydantic.BaseModel`, 
     *  uses `ormar.ModelMetaclass` for all heavy lifting, relations declaration, 
     parsing `ormar` fields, creating `sqlalchemy` columns and tables etc.
-        * There is a lot of tasks during class creation so `ormar` is using a lot of 
-          `helpers` methods separated by functionality: `pydantic`, `sqlachemy`, 
-          `relations` & `models` located in `helpers` submodule.
+        * There are a lot of tasks during class creation so `ormar` is using a lot of 
+          `helpers` methods separated by functionality: `pydantic`, `sqlalchemy`, 
+          `relations` and `models` located in `helpers` submodule.
     *  inherits from `ormar.ModelTableProxy` that combines `Mixins` providing a special
     additional behavior for `ormar.Models`
         * `AliasMixin` - handling of column aliases, which are names changed only in db
-        * `ExcludableMixin` - handling excluding and including fields in dict() and database calls
-        * `MergeModelMixin` - handling merging Models initialized from raw sql raws into Models that needs to be merged,
+        * `ExcludableMixin` - handling excluding and including fields in `dict()` and database calls
+        * `MergeModelMixin` - handling merging Models initialized from raw sql into Models that needs to be merged,
           in example parent models in join query that duplicates in raw response.
         * `PrefetchQueryMixin` - handling resolving relations and ids of models to extract during issuing
-          subsequent queries in prefetch_related
-        * `RelationMixin` - handling resolving relations names, related fields etc.
+          subsequent queries in `prefetch_related`
+        * `RelationMixin` - handling resolving relations names, related fields, etc.
         * `SavePrepareMixin` - handling converting related models to their pk values, translating ormar field
         names into aliases etc.
           
@@ -68,23 +68,23 @@ Provides a `QuerySet` that is exposed on each Model as `objects` property.
 Have a vast number of methods to query, filter, create, update and delete database rows.
 
 *  Actual construction of the queries is delegated to `Query` class
-    * which in tern uses `SqlJoin` to construct joins
+    * which in turn uses `SqlJoin` to construct joins
     * `Clause` to convert `filter` and `exclude` conditions into sql
     * `FilterQuery` to apply filter clauses on query
     * `OrderQuery` to apply order by clauses on query
     * `LimitQuery` to apply limit clause on query
     * `OffsetQuery` to apply offset clause on query
-* For prefetch_related the same is done by `PrefetchQuery`
+* For `prefetch_related` the same is done by `PrefetchQuery`
 * Common helpers functions are extracted into `utils`
 
 ### Relations
 
-Handles registering relations, adding/removing to relations as well as returning the
+Handles registering relations, adding to /removing from relations as well as returning the
 actual related models instead of relation fields declared on Models.
 
 * Each `ormar.Model` has its own `RelationManager` registered under `_orm` property.
     * `RelationManager` handles `Relations` between two different models
-        * In case of reverse relations or m2m relations the `RelationProxy` is used which
+        * In case of reverse relations or m2m relations the `RelationProxy` is used, which
         is basically a list with some special methods that keeps a reference to a list of related models
         * Also, for reverse relations and m2m relations `QuerySetProxy` is exposed, that is
         used to query the already pre-filtered related models and handles Through models
@@ -104,10 +104,10 @@ receiver functions that will be notified on each event.
 * For now only combination of (pre, post) (save, update, delete) events are pre populated for user
 although it's easy to register user `Signal`s.
 * set of decorators is prepared, each corresponding to one of the builtin signals,
-that can be used to mark functions/methods that should become receivers, those decorators
+that can be used to mark functions/methods that should become receivers. Those decorators
 are located in `decorators.signals`.
-* You can register same function to different `ormar.Models` but each Model has it's own
-Emitter that is independednt and issued on events for given Model. 
+* You can register the same function to different `ormar.Models`, but each Model has its own
+Emitter that is independent and issued on events for the given Model. 
 * Currently, there is no way to register global `Signal` triggered for all models.
 
 ### Exceptions

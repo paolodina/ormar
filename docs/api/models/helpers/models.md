@@ -91,9 +91,9 @@ Translates the list of related strings into a dictionary.
 That way nested models are grouped to traverse them in a right order
 and to avoid repetition.
 
-Sample: ["people__houses", "people__cars__models", "people__cars__colors"]
+Sample: `["people__houses", "people__cars__models", "people__cars__colors"]`
 will become:
-{'people': {'houses': [], 'cars': ['models', 'colors']}}
+`{'people': {'houses': [], 'cars': ['models', 'colors']}}`
 
 Result dictionary is sorted by length of the values and by key
 
